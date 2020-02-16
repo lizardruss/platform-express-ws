@@ -1,0 +1,12 @@
+{
+  "extends": "../tsconfig",
+  "compilerOptions": {
+    "baseUrl": "..",
+    "rootDir": ".."
+  },
+  "include": [
+    "../e2e/**/*.ts",
+    "../src/**/*.d.ts",
+    "../test/**/*.d.ts"
+  ]
+}

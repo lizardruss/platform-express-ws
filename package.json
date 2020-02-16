@@ -1,0 +1,87 @@
+{
+  "name": "@lizardruss/platform-express-ws",
+  "description": "Nest - modern, fast, powerful node.js web framework (@platform-express-ws)",
+  "license": "MIT",
+  "author": "Russell Centanni",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lizardruss/platform-express-ws"
+  },
+  "version": "0.0.1",
+  "scripts": {
+    "build": "tsc --project src/tsconfig.json",
+    "clean": "rm -rf ./.nyc_output ./coverage ./dist ./node_modules",
+    "coverage": "nyc npm run test",
+    "format": "prettier --write --config .prettierrc './src/**/*.ts' './e2e/**/*.ts' './*.ts'",
+    "lint": "eslint --fix --ext .ts ./src",
+    "release": "standard-version",
+    "test": "mocha --opts e2e/mocha.opts --reporter ${MOCHA_REPORTER:-spec}",
+    "test:debug": "mocha --opts e2e/mocha.opts --inspect-brk=9229"
+  },
+  "dependencies": {
+    "express-ws": "^4.0.0"
+  },
+  "peerDependencies": {
+    "@nestjs/common": "^6.11.0",
+    "@nestjs/platform-express": "^6.11.0",
+    "@nestjs/platform-ws": "^6.11.0",
+    "@nestjs/websockets": "^6.11.0",
+    "reflect-metadata": "^0.1.12",
+    "rxjs": "^6.0.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "@istanbuljs/nyc-config-typescript": "^0.1.3",
+    "@nestjs/common": "^6.11.0",
+    "@nestjs/core": "^6.11.0",
+    "@nestjs/platform-express": "^6.11.0",
+    "@nestjs/platform-ws": "^6.11.0",
+    "@nestjs/testing": "^6.11.0",
+    "@nestjs/websockets": "^6.11.0",
+    "@types/chai": "^4.2.3",
+    "@types/express": "^4.17.1",
+    "@types/express-ws": "^3.0.0",
+    "@types/mocha": "^5.2.7",
+    "@types/ws": "^6.0.3",
+    "@typescript-eslint/eslint-plugin": "^2.19.2",
+    "@typescript-eslint/parser": "^2.19.2",
+    "chai": "^4.2.0",
+    "eslint": "^6.8.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.0.7",
+    "mocha": "^6.2.0",
+    "nyc": "^14.1.1",
+    "prettier": "^1.19.1",
+    "prettier-package-json": "^2.1.3",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^6.0.0",
+    "standard-version": "^7.1.0",
+    "ts-node": "^8.4.1",
+    "typescript": "^3.6.3",
+    "ws": "^7.1.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged --quiet"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx}": [
+      "prettier --write --config .prettierrc",
+      "eslint --fix --ext .ts",
+      "git add"
+    ],
+    "package.json": [
+      "prettier-package-json --write",
+      "git add"
+    ]
+  }
+}
