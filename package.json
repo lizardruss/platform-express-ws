@@ -82,12 +82,10 @@
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
       "prettier --write --config .prettierrc",
-      "eslint --fix --ext .ts",
-      "git add"
+      "eslint --fix --ext .ts"
     ],
     "package.json": [
-      "prettier-package-json --write",
-      "git add"
+      "prettier-package-json --write"
     ]
   }
 }
