@@ -1,6 +1,6 @@
 {
-  "name": "@lizardruss/platform-express-ws",
-  "description": "Nest - modern, fast, powerful node.js web framework (@platform-express-ws)",
+  "name": "nestjs-express-ws",
+  "description": "express-ws adapter for Nest",
   "license": "MIT",
   "author": "Russell Centanni",
   "repository": {
@@ -9,11 +9,13 @@
   },
   "version": "0.0.1",
   "scripts": {
-    "build": "tsc --project src/tsconfig.json",
+    "build": "concurrently 'npm run package' 'npm run build:tsc'",
+    "build:tsc": "tsc --project src/tsconfig.json",
     "clean": "rm -rf ./.nyc_output ./coverage ./dist ./node_modules",
     "coverage": "nyc npm run test",
     "format": "prettier --write --config .prettierrc './src/**/*.ts' './e2e/**/*.ts' './*.ts'",
     "lint": "eslint --fix --ext .ts ./src",
+    "package": "./scripts/package.sh",
     "release": "standard-version",
     "test": "mocha --opts e2e/mocha.opts --reporter ${MOCHA_REPORTER:-spec}",
     "test:debug": "mocha --opts e2e/mocha.opts --inspect-brk=9229"
@@ -64,6 +66,10 @@
     "typescript": "^3.6.3",
     "ws": "^7.1.2"
   },
+  "keywords": [
+    "express-ws",
+    "nestjs"
+  ],
   "publishConfig": {
     "access": "public"
   },
