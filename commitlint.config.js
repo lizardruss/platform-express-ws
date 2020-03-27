@@ -8,6 +8,7 @@ module.exports = {
         // Global scopes
         'all',
         'release',
+        'deps',
 
         // Resource types
         'express-ws',
