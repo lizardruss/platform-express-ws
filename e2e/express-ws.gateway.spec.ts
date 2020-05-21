@@ -4,6 +4,7 @@ import { expect } from 'chai';
 import * as WebSocket from 'ws';
 
 import { ExpressWsAdapter } from './../src';
+import { Issue1Gateway } from './issue-1-gateway';
 import { WithPathDifferentPortGateway } from './with-path-different-port.gateway';
 import { WithPathSamePortGateway } from './with-path-same-port.gateway';
 import { WithoutPathDifferentPortGateway } from './without-path-different-port.gateway';
@@ -222,6 +223,35 @@ describe('WebSocketGateway (ExpressWsAdapter)', () => {
       ws2.send(
         JSON.stringify({
           event: 'push',
+          data: {
+            test: 'test',
+          },
+        }),
+      );
+    });
+  });
+
+  it(`issue #1 'events' message could not be triggered`, async function() {
+    app = await createNestApp(Issue1Gateway);
+    await app.listenAsync(3000);
+
+    const ws1 = new WebSocket('ws://localhost:3000/events/agents/types');
+    await new Promise(resolve => ws1.on('open', resolve));
+    await new Promise(resolve => {
+      ws1.on('message', (data: any) => {
+        expect(JSON.parse(data)).to.deep.eq({
+          event: 'pop',
+          data: {
+            agent: 'agents',
+            test: 'test',
+            types: 'types',
+          },
+        });
+        resolve();
+      });
+      ws1.send(
+        JSON.stringify({
+          event: 'events',
           data: {
             test: 'test',
           },
